@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aritmética modular - Diagramas de fases</title>
+    <link rel="stylesheet" type="text/css" href="estilos.css" media="screen" />
+</head>
+<body onload="init()">  
+    <h1>ARITMÉTICA MODULAR</h1>
+        <div class="principal">
+            <h2>DIAGRAMA DE FASES</h2>
+            <div class="sabana">
+	            <canvas width="480" height="480" id="dibujito"> </canvas>          
+                <div class="barverot"> 
+                    <p class="minicanvas">Mover horiz.</p> 
+                    <input type="range" id="moverx" min="0" max="480" value="240" step="-10" />  
+                    <p class="minicanvas">Mover vert.</p> 
+                    <input type="range" id="movery" min="0" max="480" value="240" step="-10" orient="vertical" />      
+                    <p class="minicanvas">Acercar</p>  <input type="range" id="radio" min="240" max="3600" value="240" step="10" orient="vertical" />
+                    <p class="minicanvas">Alejar</p> 
+                </div>
+                <div class="colorespick">
+                    <p><button id="selectorcolor" class="jscolor {valueElement:'chosen_value', onFineChange:'setTextColor(this)'}">Color</button>
+                    </p>
+                    <p><input id="chosen_value" value="#221303">
+                    </p>
+                </div>
+            </div>
+        </div>      
+        </hr>
+        <div class="columna2">
+            <p class="txtmodulo">
+            </p>
+        <div class="accordionItem">
+            <h2>Instructivo</h2>
+            <div> 
+                <div class="marcointerno">
+                    <p>Modifica los valores del Módulo y el Factor para ver el diagrama de fases correspondiente.</p>
+                    <p>Factor = Tomamos un nodo arbitrario sobre la circunferencia y lo marcamos como inicio o bien lo numeramos como cero, en nuestro ejemplo es la parte inferior del dibujito, elegimos una dirección y enumeramos cada nodo, multiplicamos cada número por el Factor y trazamos una línea uniendo los nodos originales con los nodos producto.</p>
+                    <p>Modulo: en el grafico, el modulo se corresponde con la cantidad de nodos o puntos equidistantes sobre la circunferencia desde donde nacen y a donde llegan las líneas.</p>                  
+                </div>
+            </div>            
+        </div>
+        <div class="accordionItem">
+            <h2>Factorización de <span id="resultadox11" class="minitext"></span> 
+            <div> 
+                <div class="marcointerno">
+                    <p id="resultadox"></p>
+                    <p id="resultadox3"></p>
+                    <p id="resultadox5"></p>
+                    <p id="resultadox2"></p>
+                    <p id="resultadox4"></p>
+                    <p id="resultadox6"></p>
+                    <p id="resultadox7"></p>
+                    <p id="resultadox8"></p>
+                    <p id="resultadox9"></p>
+                    <p id="resultadox10"></p>
+                </div> 
+            </div>
+        </div>   
+        <div class="accordionItem">
+            <h2>Factorizacion de <span id="resultado11" class="minitext"></span></h2>
+            <div> 
+                <div class="marcointerno">
+                <p id="resultado"></p>
+                <p id="resultado3"></p>
+                <p id="resultado5"></p>
+                <p id="resultado2"></p>
+                <p id="resultado4"></p>
+                <p id="resultado6"></p>
+                <p id="resultado7"></p>
+                <p id="resultado8"></p>
+                <p id="resultado9"></p>
+                <p id="resultado10"></p>
+                </div> 
+            </div>
+        </div>   
+        <div class="accordionItem">
+            <h2>Algoritmo utilizado (javascript)</h2>
+            <div>
+                <div class="marcointerno">
+                    <div class="codigo"> 
+                        <p>var angulito = 2*Math.PI / (modulo);</p>
+                        <p>for (i = 1; i <= modulo; i++)</p>
+                        <p>{</p>
+                        <p>angulo = ((angulito) * i) ;</p>
+                        <p>xinicial = radio * (Math.sin(angulo));</p>
+                        <p>yinicial = radio * (Math.cos(angulo));</p>
+                        <p>xfinal = radio * (Math.sin(factor * angulo));</p>
+                        <p>yfinal = radio * (Math.cos(factor * angulo));</p>
+                        <p>dibujarLinea('#'+colorcito,xinicial,yinicial,xfinal,yfinal);</p>
+                        <p>}</p>
+                        <p>function dibujarLinea(color,xinicial,yinicial,xfinal,yfinal) {</p>
+		                <p>lienzo.beginPath();</p>
+                        <p>lienzo.strokeStyle = color;</p>
+                        <p>lienzo.moveTo(xinicial,yinicial);</p>
+                        <p>lienzo.lineTo(xfinal,yfinal);</p>
+                        <p>lienzo.stroke();</p>
+                        <p>lienzo.closePath();</p>
+                        <p>}</p>
+                    </div>  
+                </div>     
+            </div>
+            <div class="pruebas">
+                <input type="number" id="limite" value=1234391 />
+                <input type="button" value="Ver divisores" id="mostrar" />
+            </div>
+            <div class="pruebas">
+                <p>Ancho imagen  <input type="number" id="ckanvaswidth" value=480 /></p>
+                <p>Alto imagen  <input type="number" id="ckanvasheight" value=480 /></p>
+                <p>Radio (zoom) <input type="number" id="radioold" value=240 /></p>
+            </div>
+        </div> 
+    </div>
+    <div class="columna3">
+        <div class="controles">
+            <h2>CONTROLES</h2>
+            <div class="boxcolor">
+                <p style="txtminiatura"> </p>  
+                <p>Modulo  <input type="number" id="divisiones" value=560 /></p>
+                <p>Factor  <input type="number" id="tiempo" value=985 /></p>
+                <p><input type="button" value="Calcular" id="mostrar" /></p>
+            </div>
+            <div class="columnacolores">
+                <div class="colorespick">
+                    <p><input id="chosen_value1" value="#221303">
+                    </p>
+                </div>
+            </div>    
+        </div>
+    </div>
+<script src="dibujito.js"></script> 
+<script> function setTextColor(picker) {document.getElementsByTagName('pruebas')[0].style.color = '#' + picker.toString()}</script>
+</body>
+</html>
